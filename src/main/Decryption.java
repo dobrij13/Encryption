@@ -3,18 +3,19 @@ package main;
 import java.io.*;
 import java.util.Scanner;
 
-public class Encryption {
-    public static void getFile() {
+public class Decryption {
+    public static void writeText(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Какой файл шифруем, укажи полный путь к файлу:");
+        System.out.println("Какой файл расшифровываем, укажи полный путь к файлу:");
         String pathToFile = scanner.nextLine();
-        System.out.println("В какой файл сохраняем зашифрованную информацию, укажи полный путь к файлу:");
+        System.out.println("В какой файл сохраняем расшифрованую информацию, укажи полный путь к файлу:");
         String pathToNewFile = scanner.nextLine();
         System.out.println("Укажите ключ");
         int key = scanner.nextInt();
+
         Alphabet alphabetClass = new Alphabet();
         char[] charOfAlphabet = alphabetClass.getCharArrayOfAlphabet();
-
+        int decKey = charOfAlphabet.length - key;
         try (FileReader in = new FileReader(pathToFile);
              BufferedReader reader = new BufferedReader(in);
              FileWriter out = new FileWriter(pathToNewFile);
@@ -30,7 +31,7 @@ public class Encryption {
                     for (int j = 0; j < charOfAlphabet.length; j++) {
                         char ch = charOfAlphabet[j];
                         if (strChar == ch) {
-                            result[i] = charOfAlphabet[(j + key) % charOfAlphabet.length];
+                            result[i] = charOfAlphabet[(j + decKey) % charOfAlphabet.length];
                         }
                     }
                 }
